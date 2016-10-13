@@ -28,7 +28,7 @@ iimport paramiko
 import time
 
 workerIPs = []
-keypair = nova.keypairs.find(name="adamolevallkey")
+keypair = nova.keypairs.find(name="Group3_key")
 
 for x in range(1,3):
     

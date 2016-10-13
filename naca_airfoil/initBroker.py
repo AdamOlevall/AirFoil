@@ -28,7 +28,7 @@ nova = client.Client('2.1', session=sess)
 print "user authorization completed."
 # Create instanovae
 import time 
-keypair = nova.keypairs.find(name="adamolevallkey")
+keypair = nova.keypairs.find(name="Group3_key")
 
 nova.images.list()
 image = nova.images.find(name="Ubuntu-16.04")
