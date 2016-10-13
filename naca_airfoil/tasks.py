@@ -13,11 +13,11 @@ app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.187:5672/a
 @app.task()
 def runApp(start,stop,n,nodes,levels):
 	subprocess.call("chmod +x")
-	subprocess.call("./run.sh %d %d %d %d %d", %(start, stop, n, nodes, levels))
+	subprocess.call("./run.sh %d %d %d %d %d" %(start, stop, n, nodes, levels))
 
 	listMesh = glob.glob("/home/ubuntu/AirFoil/naca_airfoil/msh")
 	
-	for i in listMesh
+	for i in listMesh:
 		print i
 		putContainer(listMesh[i])
 

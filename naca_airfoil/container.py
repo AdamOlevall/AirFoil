@@ -20,7 +20,8 @@ def getContainer():
 
 def cleanContainer():
 # Clean up container in Swift
-	(r, obj_list) = conn.get_container(grupp3_Container)elete all objects
+	(r, obj_list) = conn.get_container(grupp3_Container)#elete all objects
 	for obj in obj_list:
 		conn.delete_object(grupp3_Container, obj['name']) # Delete container
-		print ('Deleteing container: ' + grupp3_Container) conn.delete_container(grupp3_Container)
+	print ('Deleteing container: ' + grupp3_Container)
+	conn.delete_container(grupp3_Container)

@@ -4,3 +4,5 @@
 *.msh
 
 .DS_Store
+
+naca_airfoil/.DS_Store
