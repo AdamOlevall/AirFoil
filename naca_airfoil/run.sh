@@ -20,9 +20,10 @@
 GMSHBIN="/Applications/Gmsh.app/Contents/MacOS/gmsh"
 #GMSHBIN="/usr/bin/gmsh"
 # Path to dir where geo files will be stored
-GEODIR="/Users/Olevall/Documents/Cloud/AirFoil/naca_airfoil/geo"
+LOCALDIR=$(pwd)
+GEODIR="$LOCALDIR/geo"
 # Path to dir where msh files will be stored
-MSHDIR="/Users/Olevall/Documents/Cloud/AirFoil/naca_airfoil/msh"
+MSHDIR="$LOCALDIR/msh"
 # NACA four digit airfoil (typically NACA0012)
 NACA1=0
 NACA2=0
