@@ -1,0 +1,26 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+packages:
+    - git
+    - python-pip
+    - python-swiftclient
+    - rabbitmq-server
+runcmd:
+    - pip install Flask
+    - git clone https://github.com/AdamOlevall/AirFoil.git
+    - mv Labb3 home/ubuntu/Labb3
+    - chmod -R 777 home/ubuntu/Labb3
+    - cd home/ubuntu/Labb3/messaging
+    - pip install celery
+    - pip install flower
+    - sudo apt-get -y install ipython ipython-notebook
+    - sudo -H pip install --upgrade pip
+    - sudo -H pip install jupyter
+    - sudo rabbitmqctl add_user ad ol
+    - sudo rabbitmqctl add_vhost adol
+    - sudo rabbitmqctl set_permissions -p adol ad ".*" ".*" ".*"
+    - sudo -H -u ubuntu bash -c "python app.py &" 
+    - sudo -H -u ubuntu bash -c "celery flower -A tasks &"
+    #- sudo -H -u ubuntu bash -c "celery worker -A tasks &"

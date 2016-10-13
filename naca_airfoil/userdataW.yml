@@ -1,0 +1,22 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+packages:
+    - git
+    - python-pip
+    - python-swiftclient
+    - rabbitmq-server
+runcmd:
+    - pip install Flask
+    - git clone https://github.com/AdamOlevall/AirFoil.git
+    - mv AirFoil home/ubuntu/AirFoil
+    - chmod -R 777 home/ubuntu/AirFoil
+    - cd home/ubuntu/AirFoil/naca_airfoil
+    - pip install celery
+    - sudo rabbitmqctl add_user ad ol
+    - sudo rabbitmqctl add_vhost adol
+    - sudo rabbitmqctl set_permissions -p adol ad ".*" ".*" ".*"
+   # - sudo -H -u ubuntu bash -c "python app.py &" 
+    #- sudo -H -u ubuntu bash -c "celery flower -A tasks &"
+    - sudo -H -u ubuntu bash -c "celery worker -A tasks &"
