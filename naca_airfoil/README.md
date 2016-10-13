@@ -4,7 +4,7 @@ runme.sh: bash script controlling the execution of generating GMSH .msh mesh fil
 naca2gmsh_geo.py: python script generatimng GMSH .geo geometry files
 geo: directory where geo files are stored
 msh: directory where msh files are stored
-
+   s
 TODO:
 1) install GMSH: http://geuz.org/gmsh/
 2) edit paths and variables in runme.sh
