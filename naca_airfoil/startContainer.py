@@ -1,10 +1,10 @@
 import os
 import swiftclient.client
 
-config = {'user':os.environ['OS_USERNAME'],
-                  'key':os.environ['OS_PASSWORD'],
-                  'tenant_name':os.environ['OS_TENANT_NAME'],
-                  'authurl':os.environ['OS_AUTH_URL']}
+config = {'user':"olevall",
+					'key':"zo5tuRLjuL",
+					'tenant_name':"g2015034",
+					'authurl':"http://130.238.29.253:5000/v3"}
 
 conn = swiftclient.client.Connection(auth_version=3, **config)
 
