@@ -4,33 +4,31 @@ import swiftclient.client
 import uuid
 
 
-
-
-
 def putContainer(file_name, file_path):
 	config = {'user':os.environ['OS_USERNAME'],
-                  'key':os.environ['OS_PASSWORD'],
-                  'tenant_name':os.environ['OS_TENANT_NAME'],
-                  'authurl':os.environ['OS_AUTH_URL']}
+					'key':os.environ['OS_PASSWORD'],
+					'tenant_name':os.environ['OS_TENANT_NAME'],
+					'authurl':os.environ['OS_AUTH_URL']}
 
-    conn = swiftclient.client.Connection(auth_version=3, **config) 
-                
+	conn = swiftclient.client.Connection(auth_version=3, **config)
+
 	with open(file_path, 'r') as f:
-        file_data = f.read()
+		file_data = f.read()
+
 	conn.put_object("Group3_container", file_name,file_data)
+
 
 def getContainer(file_name, file_path):
 	config = {'user':os.environ['OS_USERNAME'],
-                  'key':os.environ['OS_PASSWORD'],
-                  'tenant_name':os.environ['OS_TENANT_NAME'],
-                  'authurl':os.environ['OS_AUTH_URL']}
-
-    conn = swiftclient.client.Connection(auth_version=3, **config)
+					'key':os.environ['OS_PASSWORD'],
+					'tenant_name':os.environ['OS_TENANT_NAME'],
+					'authurl':os.environ['OS_AUTH_URL']}
+	conn = swiftclient.client.Connection(auth_version=3, **config)
 
 	conn.get_object("Group3_container", file_name)
 	f = open(file_path, 'w')
-    f.write(obj[1])
-    f.close()
+	f.write(obj[1])
+	f.close()
 
 #def cleanContainer():
 # Clean up container in Swift
