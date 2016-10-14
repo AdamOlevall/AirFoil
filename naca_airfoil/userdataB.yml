@@ -10,9 +10,9 @@ packages:
 runcmd:
     - pip install Flask
     - git clone https://github.com/AdamOlevall/AirFoil.git
-    - mv Labb3 home/ubuntu/Labb3
-    - chmod -R 777 home/ubuntu/Labb3
-    - cd home/ubuntu/Labb3/messaging
+    - mv AirFoil home/ubuntu/AirFoil
+    - chmod -R 777 home/ubuntu/AirFoil
+    - cd home/ubuntu/AirFoil/naca_airfoil
     - pip install celery
     - pip install flower
     - export OS_AUTH_URL=http://130.238.29.253:5000/v3
@@ -28,6 +28,7 @@ runcmd:
     - sudo rabbitmqctl add_user ad ol
     - sudo rabbitmqctl add_vhost adol
     - sudo rabbitmqctl set_permissions -p adol ad ".*" ".*" ".*"
+    - sudo -H -u ubuntu bash -c "python startContainer.py"
     - sudo -H -u ubuntu bash -c "python app.py &" 
     - sudo -H -u ubuntu bash -c "celery flower -A tasks &"
     #- sudo -H -u ubuntu bash -c "celery worker -A tasks &"
