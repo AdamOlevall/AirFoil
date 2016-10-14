@@ -15,20 +15,17 @@ runcmd:
     - cd home/ubuntu/AirFoil/naca_airfoil
     - pip install celery
     - pip install flower
-    - export OS_AUTH_URL=http://130.238.29.253:5000/v3
-    - export OS_TENANT_ID=74833650f49e4227b868610684b155f2
-    - export OS_TENANT_NAME="g2015034"
-    - export OS_PROJECT_NAME="g2015034"
-    - export OS_USERNAME="olevall"
-    - export OS_PASSWORD="zo5tuRLjuL"
-    - export OS_REGION_NAME="UPPMAX"
-    - sudo apt-get -y install ipython ipython-notebook
-    - sudo -H pip install --upgrade pip
-    - sudo -H pip install jupyter
     - sudo rabbitmqctl add_user ad ol
     - sudo rabbitmqctl add_vhost adol
     - sudo rabbitmqctl set_permissions -p adol ad ".*" ".*" ".*"
-    - sudo -H -u ubuntu bash -c "python startContainer.py"
+    - export OS_AUTH_URL=http://130.238.29.253:5000/v3
+    - export OS_TENANT_ID=74833650f49e4227b868610684b155f2
+    - export OS_TENANT_NAME="g2015034"
+    - export OS_PROJECT_NAME="g2015034"
+    - export OS_USERNAME="olevall"
+    - export OS_PASSWORD="zo5tuRLjuL"
+    - export OS_REGION_NAME="UPPMAX"
+    - sudo -H -u ubuntu bash -c "python startContainer.py &" 
     - sudo -H -u ubuntu bash -c "python app.py &" 
     - sudo -H -u ubuntu bash -c "celery flower -A tasks &"
-    #- sudo -H -u ubuntu bash -c "celery worker -A tasks &"
+    - sudo -H -u ubuntu bash -c "celery worker -A tasks &"
