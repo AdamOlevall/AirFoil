@@ -22,7 +22,7 @@ def cow_say():
 	tup = (0, 6, 3, 200,0);
 	tup2 = (6, 10, 2, 200,0);
 	#tupleslist 
-	tupleslist = [tup,tup2]
+	tuplelist = [tup,tup2]
 
 	
 	
@@ -38,7 +38,8 @@ def cow_say():
 
 
 	#getContainer()
-
+if __name__ == '__main__':
+	app.run(host='0.0.0.0', debug=True)
 
 
 

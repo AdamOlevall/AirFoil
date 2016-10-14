@@ -12,8 +12,7 @@ app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.13:5672/ad
 
 @app.task()
 def runApp(start,stop,n,nodes,levels):
-	subprocess.call("chmod +x")
-	subprocess.call("./run.sh %d %d %d %d %d" %(start, stop, n, nodes, levels))
+	subprocess.call("sudo ./run.sh %d %d %d %d %d" %(start, stop, n, nodes, levels), shell = True)
 
 	listMesh = glob.glob("/home/ubuntu/AirFoil/naca_airfoil/msh")
 	

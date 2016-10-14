@@ -7,6 +7,7 @@ packages:
     - python-pip
     - python-swiftclient
     - rabbitmq-server
+    - gmsh
 runcmd:
     - pip install Flask
     - git clone https://github.com/AdamOlevall/AirFoil.git
