@@ -19,7 +19,6 @@ runcmd:
     - sudo rabbitmqctl add_user ad ol
     - sudo rabbitmqctl add_vhost adol
     - sudo rabbitmqctl set_permissions -p adol ad ".*" ".*" ".*"
-    - sudo -H -u ubuntu bash -c "python startContainer.py &" 
     - sudo -H -u ubuntu bash -c "python app.py &" 
     - sudo -H -u ubuntu bash -c "celery flower -A tasks &"
     - sudo -H -u ubuntu bash -c "celery worker -A tasks &"
