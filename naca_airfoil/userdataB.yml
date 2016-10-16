@@ -16,6 +16,7 @@ runcmd:
     - cd home/ubuntu/AirFoil/naca_airfoil
     - pip install celery
     - pip install flower
+    - pip install numpy
     - sudo rabbitmqctl add_user ad ol
     - sudo rabbitmqctl add_vhost adol
     - sudo rabbitmqctl set_permissions -p adol ad ".*" ".*" ".*"
