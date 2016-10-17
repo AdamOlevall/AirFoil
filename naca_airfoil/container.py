@@ -3,6 +3,7 @@ import os
 import swiftclient.client
 import uuid
 import subprocess
+import urllib2, urllib
 
 
 def putContainer(file_name, file_path):
@@ -17,6 +18,7 @@ def putContainer(file_name, file_path):
 		file_data = f.read()
 
 	conn.put_object("Group3_container", file_name,file_data)
+
 	print "Uploaded " + file_name + ' to the container'
 
 
