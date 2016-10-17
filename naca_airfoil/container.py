@@ -4,7 +4,7 @@ import swiftclient.client
 import uuid
 
 
-def putContainer(file_name, file_path):
+def putContainer(file_name):
 	config = {'user':"olevall",
 					'key':"zo5tuRLjuL",
 					'tenant_name':"g2015034",
