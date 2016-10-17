@@ -60,7 +60,7 @@ def dat2gmsh(x,y):
   i = 0
   while i < x.size:
     print "Point(" + str(i+1) + ") = {" + str(x[i]) + "," + str(y[i])+",0,"+str(lc1)+"};"
-    i += 1 
+    i += 1
   ntot = x.size
   i = 1
   while i < ntot:
@@ -71,7 +71,7 @@ def dat2gmsh(x,y):
   i = 1
   while i < ntot:
     print("%d," % (i)),
-    i += 1 
+    i += 1
   print str(ntot) + "};"
 # Outer domain boundary
   print "Point(100000) = {-10,0,0,"+str(lc2)+"};"
@@ -103,4 +103,3 @@ x, y = naca4(n1,n2,n3,n4,xs)
 xa, ya = rot(x,y,angle)
 dat2gmsh(xa,ya)
 ###########################################################################
-

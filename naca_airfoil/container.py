@@ -2,9 +2,10 @@
 import os
 import swiftclient.client
 import uuid
+import subprocess
 
 
-def putContainer(file_name):
+def putContainer(file_name, file_path):
 	config = {'user':"olevall",
 					'key':"zo5tuRLjuL",
 					'tenant_name':"g2015034",
@@ -12,10 +13,11 @@ def putContainer(file_name):
 
 	conn = swiftclient.client.Connection(auth_version=3, **config)
 
-	with open(file_name, 'r') as f:
+	with open(file_path + file_name, 'r') as f:
 		file_data = f.read()
 
 	conn.put_object("Group3_container", file_name,file_data)
+	print "Uploaded " + file_name + ' to the container'
 
 
 def getContainer(file_name, file_path):
@@ -32,8 +34,8 @@ def getContainer(file_name, file_path):
 
 #def cleanContainer():
 # Clean up container in Swift
-	#(r, obj_list) = conn.get_container("Group3_container")#elete all objects
-	#for obj in obj_list:
-	#	conn.delete_object("Group3_container", obj['name']) # Delete container
-	#print ('Deleteing container: ' + "Group3_container")
-	#conn.delete_container("Group3_container")
+#	(r, obj_list) = conn.get_container("Group3_container")#elete all objects
+#	for obj in obj_list:
+#		conn.delete_object("Group3_container", obj['name']) # Delete container
+#	print ('Deleteing container: ' + "Group3_container")
+#	conn.delete_container("Group3_container")

@@ -53,7 +53,7 @@ if [ "$n_levels" -gt "0" ]; then
     pm=r$(($i-1))a;
     pmn=r$(($i))a;
     for j in `ls $MSHDIR|grep ^$pm`; do
-      newname="$(echo $j|sed -e s/"$pm"/"$pmn"/)"; 
+      newname="$(echo $j|sed -e s/"$pm"/"$pmn"/)";
       cp $MSHDIR/$j $MSHDIR/$newname;
       $GMSHBIN -refine -v 0 $MSHDIR/$newname;
     done
