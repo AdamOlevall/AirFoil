@@ -12,7 +12,7 @@ def putContainer(file_name, file_path):
 
 	conn = swiftclient.client.Connection(auth_version=3, **config)
 
-	with open(file_path, 'r') as f:
+	with open(file_name, 'r') as f:
 		file_data = f.read()
 
 	conn.put_object("Group3_container", file_name,file_data)
