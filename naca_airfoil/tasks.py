@@ -18,7 +18,7 @@ def runApp(start,stop,n,nodes,levels):
 	
 	for i in listMesh:
 		print i
-		putContainer(listMesh[i],"/home/ubuntu/AirFoil/naca_airfoil/msh")
+		putContainer(i,"/home/ubuntu/AirFoil/naca_airfoil/msh")
 
 
 
