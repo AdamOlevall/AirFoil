@@ -13,6 +13,7 @@ app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.13:5672/ad
 
 @app.task()
 def runApp(start,stop,n,nodes,levels):
+
 	subprocess.call("sudo ./run.sh %d %d %d %d %d" %(start, stop, n, nodes, levels), shell = True)
 
 	files_to_xml()
@@ -21,7 +22,7 @@ def runApp(start,stop,n,nodes,levels):
 	for xmlFile in xmlList:
 		putContainer(xmlFile)
 
-def files_to_xml()
+def files_to_xml():
 	mshList = glob.glob("/home/ubuntu/AirFoil/naca_airfoil/msh/*.msh")
 
 	for filename in mshList:
