@@ -7,7 +7,7 @@ import urllib2
 import subprocess
 from container import putContainer
 import glob
-from dolfin-convert import gmsh2xml
+from dolfin_convert import gmsh2xml
 
 app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.13:5672/adol')
 
