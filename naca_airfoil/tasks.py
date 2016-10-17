@@ -19,7 +19,7 @@ def runApp(start,stop,n,nodes,levels):
 
 	xmlList = glob.glob("*.xml")
 	for xmlFile in xmlList:
-		putContainer(xmlFile, "/home/ubuntu/AirFoil/naca_airfoil/msh")
+		putContainer(xmlFile)
 
 def files_to_xml()
 	mshList = glob.glob("/home/ubuntu/AirFoil/naca_airfoil/msh/*.msh")
