@@ -28,23 +28,32 @@ nova = client.Client('2.1', session=sess)
 print "user authorization completed."
 # Create instanovae
 import time 
-keypair = nova.keypairs.find(name="Group3_key")
+keypair = nova.keypairs.find(name="new_cloud")#Insert name of you key
 
 nova.images.list()
-image = nova.images.find(name="Ubuntu-16.04")
-flavor = nova.flavors.find(name="m1.medium")
+image = nova.images.find(name="ubuntu 14.04")
+flavor = nova.flavors.find(name="m1.small")
 
 nova.networks.list()
 private_net = "g2015034-net_2"
+secgroups = "default"
 
 
+net = ""
+if private_net != None:
+    net = nova.networks.find(label=private_net)
+    nics = [{'net-id': net.id}]
+else:
+    sys.exit("private-net not defined.")
     
 print "Getting userdata..."
 ud = open('userdataB.yml', 'r')
 
+secgroup = nova.security_groups.find(name="default")
+secgroups = [secgroup.id]
 
 print "Creating broker ... "
-instance = nova.servers.create(name="Grupp3_Broker", image=image, flavor=flavor, network = network, userdata=ud, nics=nics,security_groups=secgroups, key_name = keypair.name)
+instance = nova.servers.create(name="Grupp3_johe", image=image, flavor=flavor, network = net, nics = nics, userdata=ud,security_groups = secgroups, key_name = keypair.name)
 inst_status = instance.status
 
 
@@ -56,12 +65,12 @@ while inst_status == 'BUILD':
 
 print "Instance: "+ instance.name +" is in " + inst_status + "state"
 
-floating_ip = '130.238.29.187'
+floating_ip = nova.floating_ips.create("public")
 print "Attaching IP:"
-print floating_ip
-server.add_floating_ip(floating_ip)
 
-secgroup = nova.security_groups.find(name="default")
+
+if floating_ip.ip != None: 
+    instance.add_floating_ip(floating_ip)
 
 try:
     nova.security_group_rules.create(secgroup.id,

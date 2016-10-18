@@ -54,9 +54,12 @@ def web_api():
                         input_time = int(request.form['time'])
                 except:
                         return "invalid input"
-                num_workers = calculateNumWorkers(angle_start, angle_stop, n_angles, n_nodes, n_levels)
+
                 
                 iList = createAngles(angle_start, angle_stop, n_angles)
+
+                num_workers = calculateNumWorkers(len(iList), n_nodes, n_levels)
+                
                 tupleList = []
                 for i in iList:
                         tupleList.append((i, n_nodes, n_levels, num_samples, viscosity, speed, input_time))
@@ -67,12 +70,14 @@ def web_api():
 	
 	        while (not dataTask.ready()):
 		        pass
+                
                 time_elapsed = (time.time() - startTime)	
-                print "The task is done! Time: " + str(time_elapsed)
+                print "The task is done! Time: " + str(int(time_elapsed)) + "s"
+                res = dataTask.result
                 #getContainer()
-                return render_template('grupp3.html')
+                return "" # dict containing {angle:mean}
         else:
-                return render_template('grupp3.html')
+                return render_template('form.html')
 
 """def createCallTuples(angle_start, angle_stop, n_angles, n_nodes, n_levels, num_workers):
         
@@ -113,10 +118,10 @@ def createAngles(angle_start, angle_stop, n_angles):
                 iList.append(angle_start + angle_diff*i)
         return iList
 
-def calculateNumWorkers(angle_start, angle_stop, n_angles, n_nodes, n_levels):
+def calculateNumWorkers(i,n_nodes, n_levels):
         weights = [1,1,1] # weights for calculating total workload 
         num_workers = 0
-        workLoad = (weights[0]*n_levels)*(weights[1]*n_nodes*n_angles)*(weights[2]*(angle_stop-angle_start)) #TODO
+        workLoad = i*weights[0]*n_nodes*weights[1]*n_levels*weights[2] #TODO
         if workLoad > 100:
                 num_workers = 5
         elif workLoad > 80:
@@ -129,6 +134,16 @@ def calculateNumWorkers(angle_start, angle_stop, n_angles, n_nodes, n_levels):
                 num_workers = 1
         else:
                 num_workers = 0
+
+def properParse(d):
+    jString = '{'
+    for (k,v) in d.iteritems():
+        dqK = str(k).replace('\'', '"')
+        dqV = str(v).replace('\'', '"')
+        jString += "\"" + str(dqK) + "\":\"" + str(dqV) + "\"" + ","
+    jString = jString[:-1]
+    jString += '}'
+    return jString
                 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', debug=True)
