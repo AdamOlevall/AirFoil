@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+    <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]-->
+ <script language="javascript" type="text/javascript" src="jquery.min.js"></script>
+ <script language="javascript" type="text/javascript" src="jquery.jqplot.min.js"></script>
+ <script type="text/javascript" src="jqplot.canvasAxisLabelRenderer.js"></script>
+ <script type="text/javascript" src="jqplot.canvasTextRenderer.js"></script>
+ <script language="javascript" type="text/javascript" src="script.js"></script>
+
+ <link rel="stylesheet" type="text/css" href="jquery.jqplot.css" />
+
+<body>
+
+
+  
+<form id="idForm" action="http://127.0.0.1:5000/naca/service" method="POST">
+Angles start:<br>
+<input type="text" name="angles_start">
+<br>
+
+Angles stop:<br>
+<input type="text" name="angles_stop">
+<br><br>
+Number of angles:<br>
+<input type="text" name="n_angles" >
+<br>
+
+Number of nodes:<br>
+<input type="text" name="n_nodes">
+<br>
+
+Number of levels:<br>
+<input type="text" name="n_levels">
+<br>
+
+Viscosity:<br>
+<input type="text" name="viscosity">
+<br>
+
+Speed:<br>
+<input type="text" name="speed">
+<br>
+
+Number of samples:<br>
+<input type="text" name="samples">
+<br>
+
+Time:<br>
+<input type="text" name="time">
+<br>
+
+<input type="submit" value="Submit">
+
+</form>
+
+<div id="chartdiv" style="height:700px;width:700px;" ></div>
+
+</body>
+</html>
