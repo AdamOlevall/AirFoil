@@ -17,6 +17,7 @@ runcmd:
     - mv AirFoil home/ubuntu/AirFoil
     - chmod -R 777 home/ubuntu/AirFoil
     - cd home/ubuntu/AirFoil/naca_airfoil
+    - yes | sudo apt-get install libdolfin1.6
     - pip install celery
     - pip install flower
     - pip install numpy

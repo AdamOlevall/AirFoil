@@ -10,8 +10,8 @@ import glob
 from dolfin_convert import gmsh2xml
 from Calculations import calc_mean
 
-#app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.13:5672/adol')
-app = Celery('tasks', backend='amqp', broker='amqp://') #Local debugging
+app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.13:5672/adol')
+#app = Celery('tasks', backend='amqp', broker='amqp://') #Local debugging
 
 def clean_folders():
 	if len(glob.glob('/home/ubuntu/AirFoil/naca_airfoil/msh/*')) > 0:

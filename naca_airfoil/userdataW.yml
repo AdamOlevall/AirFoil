@@ -6,10 +6,16 @@ packages:
     - git
     - python-pip
     - python-swiftclient
+    - gmsh
+apt_sources:
+   - source: "ppa:fenics-packages/fenics"
 runcmd:
+    - sudo pip install --upgrade pip
     - git clone https://github.com/AdamOlevall/AirFoil.git
     - mv AirFoil home/ubuntu/AirFoil
     - chmod -R 777 home/ubuntu/AirFoil
     - cd home/ubuntu/AirFoil/naca_airfoil
-    - pip install celery
+    - yes | sudo apt-get install libdolfin1.6
+    - sudo pip install numpy
+    - sudo pip install celery
     - sudo -H -u ubuntu bash -c "celery worker -A tasks &"
