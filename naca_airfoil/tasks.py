@@ -15,7 +15,7 @@ app = Celery('tasks', backend='amqp', broker='amqp://') #Local debugging
 
 def create_msh(i,n_nodes,n_levels):
 	subprocess.call("sudo ./run.sh %d %d %d %d %d" %(i, i, 1, n_nodes, n_levels), shell = True)
-	
+
 
 
 
@@ -46,7 +46,11 @@ def runAirfoil(i, num_samples, viscosity, speed, time):
 
 @app.task()
 def runApp(i,n_nodes,n_levels, num_samples, viscosity, speed ,time):
-	subprocess.check_call("sudo rm /home/ubuntu/AirFoil/naca_airfoil/msh/* /home/ubuntu/AirFoil/naca_airfoil/geo/* /home/ubuntu/AirFoil/naca_airfoil/results/*", shell=True)
+	try:
+		subprocess.check_call("sudo rm /home/ubuntu/AirFoil/naca_airfoil/msh/* /home/ubuntu/AirFoil/naca_airfoil/geo/* /home/ubuntu/AirFoil/naca_airfoil/results/*", shell=True)
+	except:
+		pass
+
 	create_msh(i,n_nodes,n_levels)
 	msh_to_xml(i)
 	runAirfoil(i, num_samples, viscosity, speed, time)
