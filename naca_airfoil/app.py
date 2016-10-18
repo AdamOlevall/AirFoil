@@ -32,7 +32,7 @@ def basic_api():
 
 	while (not dataTask.ready()):
 		pass
-    print "The task is done!"
+	print "The task is done!"
 
 
 @app.route('/naca/service', methods=['GET', 'POST'])
@@ -63,7 +63,7 @@ def web_api():
         startTime = time.time()
         job = group(runApp.s(*i) for i in tupleList)
         dataTask = job.apply_async()
-	    print "Celery is working..."
+	print "Celery is working..."
 
         while (not dataTask.ready()):
 	        pass
