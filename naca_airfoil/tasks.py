@@ -10,7 +10,7 @@ import glob
 from dolfin_convert import gmsh2xml
 from Calculations import calc_mean
 
-app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.13:5672/adol')
+app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.208:5672/adol')
 app.conf.update(CELERY_ACKS_LATE = True,
 	CELERYD_PREFETCH_MULTIPLIER = 1)
 #app = Celery('tasks', backend='amqp', broker='amqp://') #Local debugging
