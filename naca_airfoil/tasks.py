@@ -37,7 +37,7 @@ def msh_to_xml(i):
 def runAirfoil(i, num_samples, viscosity, speed, time):
 	xmlFiles = glob.glob("msh/r*a" + str(i) + "n*.xml")
 	for file in xmlFiles:
-		name = "sudo ./navier_stokes_solver/airfoil " + str(num_samples) + " " + str(viscosity) + " " + str(speed) + " " + str(time) + " /" +file + ' > /dev/null'
+		name = "sudo ./navier_stokes_solver/airfoil " + str(num_samples) + " " + str(viscosity) + " " + str(speed) + " " + str(time) + " /" +file
 		print "Starting airfoil: " + name
 		subprocess.check_call(name, shell=True)
 		print "Finished airfoil: " + name
