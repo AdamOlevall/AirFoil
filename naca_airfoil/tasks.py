@@ -26,8 +26,6 @@ def create_msh(i,n_nodes,n_levels):
 	subprocess.call("sudo ./run.sh %d %d %d %d %d" %(i, i, 1, n_nodes, n_levels), shell = True)
 
 
-
-
 def msh_to_xml(i):
 	mshList = glob.glob("msh/r*a" + str(i) + "n*.msh")
 
@@ -45,13 +43,15 @@ def msh_to_xml(i):
 
 	# print 'Everything is in the container!'
 
+
 def runAirfoil(i, num_samples, viscosity, speed, time):
 	xmlFiles = glob.glob("msh/r*a" + str(i) + "n*.xml")
 	for file in xmlFiles:
-		name = "sudo ./navier_stokes_solver/airfoil " + str(num_samples) + " " + str(viscosity) + " " + str(speed) + " " + str(time) + " /" +file
+		name = "sudo ./navier_stokes_solver/airfoil " + str(num_samples) + " " + str(viscosity) + " " + str(speed) + " " + str(time) + " " + file
 		print "Starting airfoil: " + name
 		subprocess.check_call(name, shell=True)
 		print "Finished airfoil: " + name
+
 
 @app.task()
 def runApp(i,n_nodes,n_levels, num_samples, viscosity, speed ,time):
