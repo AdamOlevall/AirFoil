@@ -9,8 +9,8 @@ from container import putContainer
 import glob
 from dolfin_convert import gmsh2xml
 
-app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.13:5672/adol')
-
+#app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.13:5672/adol')
+app = Celery('tasks', backend='amqp', broker='amqp://') #Local debugging
 
 def create_msh(i,n_nodes,n_levels):
 	subprocess.call("sudo ./run.sh %d %d %d %d %d" %(i, i, 1, n_nodes, n_levels), shell = True)
