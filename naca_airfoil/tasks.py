@@ -8,6 +8,7 @@ import subprocess
 from container import putContainer
 import glob
 from dolfin_convert import gmsh2xml
+from Calculations import calc_mean
 
 #app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.13:5672/adol')
 app = Celery('tasks', backend='amqp', broker='amqp://') #Local debugging
@@ -16,7 +17,7 @@ def create_msh(i,n_nodes,n_levels):
 	subprocess.call("sudo ./run.sh %d %d %d %d %d" %(i, i, 1, n_nodes, n_levels), shell = True)
 	print 'Converted all .msh files to .xml'
 
-	
+
 
 def msh_to_xml(i):
 	mshList = glob.glob("msh/r*a" + str(i) + "n*.msh")
@@ -36,17 +37,19 @@ def msh_to_xml(i):
 def runAirfoil(i, num_samples, viscosity, speed, time):
 	xmlFiles = glob.glob("msh/r*a" + str(i) + "n*.xml")
 	for file in xmlFiles:
-		name = "sudo ./navier_stokes_solver/airfoil " + str(num_samples) + " " + str(viscosity) + " " + str(speed) + " " + str(time) + " /" +file 
+		name = "sudo ./navier_stokes_solver/airfoil " + str(num_samples) + " " + str(viscosity) + " " + str(speed) + " " + str(time) + " /" +file + ' > /dev/null'
 		print "Starting airfoil: " + name
 		subprocess.check_call(name, shell=True)
-		print "Finnished airfoil: " + name
+		print "Finished airfoil: " + name
 
 @app.task()
 def runApp(i,n_nodes,n_levels, num_samples, viscosity, speed ,time):
-	subprocess.check_call("sudo rm /msh/* /geo/*", shell=True)
+	subprocess.check_call("sudo rm /home/ubuntu/AirFoil/naca_airfoil/msh/* /home/ubuntu/AirFoil/naca_airfoil/geo/* /home/ubuntu/AirFoil/naca_airfoil/results/*", shell=True)
 	create_msh(i,n_nodes,n_levels)
 	msh_to_xml(i)
 	runAirfoil(i, num_samples, viscosity, speed, time)
+	lift_mean, drag_mean = calc_mean('/home/ubuntu/AirFoil/naca_airfoil/results/drag_ligt.m')
+	return {str(i):(lift_mean, drag_mean)}
 
 
 
