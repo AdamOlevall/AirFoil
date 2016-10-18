@@ -11,6 +11,7 @@ packages:
 apt_sources:
     - source: "ppa:fenics-packages/fenics"  
 runcmd:
+    - sudo pip install --upgrade pip
     - pip install Flask
     - git clone https://github.com/AdamOlevall/AirFoil.git
     - mv AirFoil home/ubuntu/AirFoil

@@ -15,7 +15,7 @@ app = Celery('tasks', backend='amqp', broker='amqp://') #Local debugging
 
 def create_msh(i,n_nodes,n_levels):
 	subprocess.call("sudo ./run.sh %d %d %d %d %d" %(i, i, 1, n_nodes, n_levels), shell = True)
-	print 'Converted all .msh files to .xml'
+	
 
 
 
@@ -26,13 +26,15 @@ def msh_to_xml(i):
 		output_name = filename[:-3] + "xml"
 		gmsh2xml(filename, output_name)
 
-	xmlList = glob.glob("/home/ubuntu/AirFoil/naca_airfoil/msh/*.xml")
-	for xmlFile in xmlList:
-		list_of_path = xmlFile.split('/')
-		filename = list_of_path[-1]
-		putContainer(filename, '/home/ubuntu/AirFoil/naca_airfoil/msh/')
+	print 'Converted all .msh files to .xml'
 
-	print 'Everything is in the container!'
+	# xmlList = glob.glob("/home/ubuntu/AirFoil/naca_airfoil/msh/*.xml")
+	# for xmlFile in xmlList:
+	# 	list_of_path = xmlFile.split('/')
+	# 	filename = list_of_path[-1]
+	# 	putContainer(filename, '/home/ubuntu/AirFoil/naca_airfoil/msh/')
+
+	# print 'Everything is in the container!'
 
 def runAirfoil(i, num_samples, viscosity, speed, time):
 	xmlFiles = glob.glob("msh/r*a" + str(i) + "n*.xml")
@@ -50,6 +52,7 @@ def runApp(i,n_nodes,n_levels, num_samples, viscosity, speed ,time):
 	runAirfoil(i, num_samples, viscosity, speed, time)
 	lift_mean, drag_mean = calc_mean('/home/ubuntu/AirFoil/naca_airfoil/results/drag_ligt.m')
 	return {str(i):(lift_mean, drag_mean)}
+
 
 
 
