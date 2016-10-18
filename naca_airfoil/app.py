@@ -12,10 +12,19 @@ import urllib2
 from collections import Counter
 from container import getContainer
 import math
+import glob
 
 from tasks import runApp
 
 app = Flask(__name__)
+
+"""stat_file_paths = glob.glob('./static/*')
+
+for file_path in stat_file_paths:
+        path_divided = file_path.split("/")
+        file_name = path_divided[-1]
+        url_for('static', filename=file_name)"""
+
 @app.route('/naca/api', methods=['GET'])
 def basic_api():
         
