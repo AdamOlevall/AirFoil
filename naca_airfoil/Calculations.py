@@ -12,7 +12,7 @@ def calc_mean(file_name):
 	drag_values = []
 	with open(file_name, 'r') as f:
 		for line in f:
-			if 'drag' not in line
+			if 'drag' not in line:
 				all_values_of_line = line.split()
 				lift_values.append(float(all_values_of_line[-2]))
 				drag_values.append(float(all_values_of_line[-1]))
