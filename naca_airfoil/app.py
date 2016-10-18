@@ -71,11 +71,13 @@ def web_api():
 	        while (not dataTask.ready()):
 		        pass
                 
-                time_elapsed = (time.time() - startTime)	
-                print "The task is done! Time: " + str(int(time_elapsed)) + "s"
-                res = dataTask.result
+            time_elapsed = (time.time() - startTime)	
+            print "The task is done! Time: " + str(int(time_elapsed)) + "s"
+        
+            toReturn = dataTask.get()
+            print str(toReturn)
                 #getContainer()
-                return "" # dict containing {angle:mean}
+            return "" # dict containing {angle:mean}
         else:
                 return render_template('form.html')
 
