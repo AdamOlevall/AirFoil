@@ -45,7 +45,7 @@ def web_api():
             n_nodes = int(request.form['n_nodes'])
             n_levels = int(request.form['n_levels'])
 
-            viscosity = int(request.form['viscosity'])
+            viscosity = float(request.form['viscosity'])
             speed = int(request.form['speed'])
             num_samples = int(request.form['samples'])
             input_time = int(request.form['time'])
