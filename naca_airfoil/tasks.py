@@ -13,6 +13,15 @@ from Calculations import calc_mean
 #app = Celery('tasks', backend='amqp', broker='amqp://ad:ol@130.238.29.13:5672/adol')
 app = Celery('tasks', backend='amqp', broker='amqp://') #Local debugging
 
+def clean_folders():
+	if len(glob.glob('/home/ubuntu/AirFoil/naca_airfoil/msh/*')) > 0:
+		subprocess.check_call("sudo rm /home/ubuntu/AirFoil/naca_airfoil/msh/*", shell=True)
+	if len(glob.glob('/home/ubuntu/AirFoil/naca_airfoil/geo/*')) > 0:
+		subprocess.check_call("sudo rm /home/ubuntu/AirFoil/naca_airfoil/geo/*", shell=True)
+	if len(glob.glob('/home/ubuntu/AirFoil/naca_airfoil/results/*')) > 0:
+		subprocess.check_call("sudo rm /home/ubuntu/AirFoil/naca_airfoil/results/*", shell=True)
+
+
 def create_msh(i,n_nodes,n_levels):
 	subprocess.call("sudo ./run.sh %d %d %d %d %d" %(i, i, 1, n_nodes, n_levels), shell = True)
 
@@ -46,11 +55,7 @@ def runAirfoil(i, num_samples, viscosity, speed, time):
 
 @app.task()
 def runApp(i,n_nodes,n_levels, num_samples, viscosity, speed ,time):
-	try:
-		subprocess.check_call("sudo rm /home/ubuntu/AirFoil/naca_airfoil/msh/* /home/ubuntu/AirFoil/naca_airfoil/geo/* /home/ubuntu/AirFoil/naca_airfoil/results/*", shell=True)
-	except:
-		pass
-
+	clean_folders()
 	create_msh(i,n_nodes,n_levels)
 	msh_to_xml(i)
 	runAirfoil(i, num_samples, viscosity, speed, time)
