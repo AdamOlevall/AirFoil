@@ -32,8 +32,6 @@ function plotGraph(data){
 	seriesDefaults: {
 	    // make this a donut chart.
 	    rendererOptions:{
-		sliceMargin: 4,
-		startAngle: 0,
 		showDataLabels: true,
 		dataLabels: 'value',
 		totalLabel: true,

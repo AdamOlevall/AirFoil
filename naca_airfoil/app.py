@@ -35,6 +35,8 @@ def basic_api():
 	print "The task is done!"
 
 
+
+
 @app.route('/naca/service', methods=['GET', 'POST'])
 def web_api():
     if request.method == 'POST':
@@ -49,8 +51,19 @@ def web_api():
             speed = int(request.form['speed'])
             num_samples = int(request.form['samples'])
             input_time = int(request.form['time'])
+
+            angle_start = int(request.form['angles_start'])
+            angle_stop = int(request.form['angles_stop'])
+            n_angles = int(request.form['n_angles'])
+            n_nodes = int(request.form['n_nodes'])
+            n_levels = int(request.form['n_levels'])
+
+            viscosity = int(request.form['viscosity'])
+            speed = int(request.form['speed'])
+            num_samples = int(request.form['samples'])
+            input_time = int(request.form['time'])
         except:
-            return "invalid input"
+                return "invalid input"
 
 
         iList = createAngles(angle_start, angle_stop, n_angles)
@@ -59,11 +72,12 @@ def web_api():
 
         tupleList = []
         for i in iList:
-            tupleList.append((i, n_nodes, n_levels, num_samples, viscosity, speed, input_time))
+                tupleList.append((i, n_nodes, n_levels, num_samples, viscosity, speed, input_time))
         startTime = time.time()
         job = group(runApp.s(*i) for i in tupleList)
         dataTask = job.apply_async()
-	print "Celery is working..."
+
+        print "Celery is working..."
 
         while (not dataTask.ready()):
 	        pass
@@ -71,9 +85,16 @@ def web_api():
         time_elapsed = (time.time() - startTime)
         print "The task is done! Time: " + str(int(time_elapsed)) + "s"
 
-        toReturn = dataTask.get()
-        print str(toReturn)
-        return ""
+        result = dataTask.get() # of the type [{angle:(lift_avg, drag_avg)},...]
+
+        totalResDict = {}
+
+        for resDict in result:
+                totalResDict[resDict.keys()[0]] = resDict.values()[0][0]
+        jsonString = json.dumps(totalResDict)
+        
+        print str(jsonString)
+        return jsonString
     else:
         return render_template('form.html')
 
@@ -102,18 +123,6 @@ def calculateNumWorkers(i,n_nodes, n_levels):
             num_workers = 1
         else:
             num_workers = 0
-
-
-def properParse(d):
-    jString = '{'
-    for (k,v) in d.iteritems():
-        dqK = str(k).replace('\'', '"')
-        dqV = str(v).replace('\'', '"')
-        jString += "\"" + str(dqK) + "\":\"" + str(dqV) + "\"" + ","
-    jString = jString[:-1]
-    jString += '}'
-    return jString
-
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', debug=True)
