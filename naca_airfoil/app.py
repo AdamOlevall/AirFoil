@@ -69,7 +69,7 @@ def web_api():
         iList = createAngles(angle_start, angle_stop, n_angles)
 
         num_workers = calculateNumWorkers(len(iList), n_nodes, n_levels)
-
+	createWorker(num_workers)
         tupleList = []
         for i in iList:
                 tupleList.append((i, n_nodes, n_levels, num_samples, viscosity, speed, input_time))
