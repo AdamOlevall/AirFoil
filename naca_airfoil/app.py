@@ -10,7 +10,7 @@ import json
 import time
 import urllib2
 from collections import Counter
-from container import getContainer
+from createInstances import createBroker
 import math
 import glob
 
