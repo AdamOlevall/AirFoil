@@ -12,7 +12,7 @@ conn = swiftclient.client.Connection(auth_version=3, **config)
 workerIPs = []
 keypair = nova.keypairs.find(name="adamolevallkey")
 
-for x in range(currentWorkers, (currentWorkers + numWorkers)):
+for x in range(currentWorkers, numWorkers):
     
     image = nova.images.find(name="ubuntu 14.04")
     flavor = nova.flavors.find(name="m1.small")
