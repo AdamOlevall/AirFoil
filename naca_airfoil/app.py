@@ -64,12 +64,25 @@ def web_api():
             input_time = int(request.form['time'])
         except:
                 return "invalid input"
+	
+	config = {'user':"olevall",
+					'key':"zo5tuRLjuL",
+					'tenant_name':"g2015034",
+					'authurl':"http://130.238.29.253:5000/v3"}
 
-
+	conn = swiftclient.client.Connection(auth_version=3, **config)
+	
+	serverlist = nova.servers.findall()
+	runningInstances = 0
+	for server in serverlist:
+   		 if(server.name.startswith("Group3")):
+       			 runningInstances += 1
+	
+	
         iList = createAngles(angle_start, angle_stop, n_angles)
 
-        num_workers = calculateNumWorkers(len(iList), n_nodes, n_levels)
-	createWorker(num_workers)
+        #num_workers = calculateNumWorkers(len(iList), n_nodes, n_levels)
+	createWorker(runningInstances, 2)
         tupleList = []
         for i in iList:
                 tupleList.append((i, n_nodes, n_levels, num_samples, viscosity, speed, input_time))
