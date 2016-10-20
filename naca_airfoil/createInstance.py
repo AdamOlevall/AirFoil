@@ -19,7 +19,7 @@ def createWorker(currentWorkers, numWorkers):
 
 	sess = session.Session(auth=auth)
 	nova = client.Client('2.1', session=sess)
-	conn = swiftclient.client.Connection(auth_version=3, **config)
+	
 
 	workerIPs = []
 	keypair = nova.keypairs.find(name="adamolevallkey")
