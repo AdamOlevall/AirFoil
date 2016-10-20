@@ -11,6 +11,7 @@ import time
 import urllib2
 from collections import Counter
 from createInstance import createWorker
+from novaclient import client
 import math
 import glob
 
