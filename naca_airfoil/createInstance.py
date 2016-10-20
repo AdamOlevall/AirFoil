@@ -14,7 +14,7 @@ keypair = nova.keypairs.find(name="adamolevallkey")
 
 for x in range(currentWorkers, numWorkers):
     
-    image = nova.images.find(name="ubuntu 14.04")
+    image = nova.images.find(name="Group3_airfoil_image")
     flavor = nova.flavors.find(name="m1.small")
 
    
