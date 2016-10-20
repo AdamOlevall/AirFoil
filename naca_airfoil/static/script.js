@@ -1,4 +1,5 @@
 var plotData;
+var plot;
 
 $(document).ready(function(){
     
@@ -18,6 +19,7 @@ $(document).ready(function(){
 		    //alert("key: " + key + " value: " + value);
 		    plotData.push([key, parseInt(value)]);
 		});
+		
 		plotGraph(plotData);
 	    }
 	});
@@ -27,8 +29,11 @@ $(document).ready(function(){
 });
 
 function plotGraph(data){
+    $('chartdiv').empty();
     console.log(data);
-    $.jqplot('chartdiv', [data], {
+    if(plot) plot.destroy();
+    plot = $.jqplot('chartdiv', [data], {
+	
 	seriesDefaults: {
 	    // make this a donut chart.
 	    rendererOptions:{
@@ -40,7 +45,9 @@ function plotGraph(data){
 	axes:{
 	    xaxis:{
 		label:'Angles',
-		labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+		labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+		min:0.0,
+		max:100.0
 	    },
 	    yaxis:{
 		label:'drag/lift',
