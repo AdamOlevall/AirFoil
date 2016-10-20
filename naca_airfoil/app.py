@@ -19,9 +19,9 @@ import time, os, sys
 import inspect
 from os import environ as env
 from  novaclient import client
-import keystoneclient.v3.client as ksclient
-from keystoneauth1 import loading
-from keystoneauth1 import session
+#import keystoneclient.v3.client as ksclient
+#from keystoneauth1 import loading
+#from keystoneauth1 import session
 
 
 app = Flask(__name__)
@@ -45,7 +45,7 @@ def basic_api():
 
 
 
-@app.route('/naca/service', methods=['GET', 'POST'])
+@app.route('/service', methods=['GET', 'POST'])
 def web_api():
     if request.method == 'POST':
         try:
