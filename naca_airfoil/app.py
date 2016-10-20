@@ -14,8 +14,15 @@ from createInstance import createWorker
 from novaclient import client
 import math
 import glob
-
 from tasks import runApp
+import time, os, sys
+import inspect
+from os import environ as env
+from  novaclient import client
+import keystoneclient.v3.client as ksclient
+from keystoneauth1 import loading
+from keystoneauth1 import session
+
 
 app = Flask(__name__)
 
@@ -56,12 +63,19 @@ def web_api():
         except:
                 return "invalid input"
 	
-	config = {'user':"olevall",
-					'key':"zo5tuRLjuL",
-					'tenant_name':"g2015034",
-					'authurl':"http://130.238.29.253:5000/v3"}
 
-	conn = swiftclient.client.Connection(auth_version=3, **config)
+
+	loader = loading.get_plugin_loader('password')
+	auth = loader.load_from_options(auth_url="http://130.238.29.253:5000/v3",
+                                username="olevall,
+                                password="zo5tuRLjuL",
+                                project_name=""g2015034",
+                                user_domain_name="Default",
+                                project_domain_name="Default")
+
+
+	sess = session.Session(auth=auth)
+	nova = client.Client('2.1', session=sess)
 	
 	serverlist = nova.servers.findall()
 	runningInstances = 0
