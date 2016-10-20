@@ -52,16 +52,6 @@ def web_api():
             num_samples = int(request.form['samples'])
             input_time = int(request.form['time'])
 
-            angle_start = int(request.form['angles_start'])
-            angle_stop = int(request.form['angles_stop'])
-            n_angles = int(request.form['n_angles'])
-            n_nodes = int(request.form['n_nodes'])
-            n_levels = int(request.form['n_levels'])
-
-            viscosity = int(request.form['viscosity'])
-            speed = int(request.form['speed'])
-            num_samples = int(request.form['samples'])
-            input_time = int(request.form['time'])
         except:
                 return "invalid input"
 	
