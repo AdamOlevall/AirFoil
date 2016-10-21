@@ -10,7 +10,7 @@ import json
 import time
 import urllib2
 from collections import Counter
-#from createInstance import createWorker
+from createInstance import createWorker
 from novaclient import client
 import math
 import glob
@@ -19,9 +19,9 @@ import time, os, sys
 import inspect
 from os import environ as env
 from  novaclient import client
-#import keystoneclient.v3.client as ksclient
-#from keystoneauth1 import loading
-#from keystoneauth1 import session
+import keystoneclient.v3.client as ksclient
+from keystoneauth1 import loading
+from keystoneauth1 import session
 
 
 app = Flask(__name__)
@@ -65,7 +65,7 @@ def web_api():
 	
 
 
-	"""loader = loading.get_plugin_loader('password')
+	loader = loading.get_plugin_loader('password')
 	auth = loader.load_from_options(auth_url="http://130.238.29.253:5000/v3",
                                 username="olevall,
                                 password="zo5tuRLjuL",
@@ -81,13 +81,13 @@ def web_api():
 	runningInstances = 0
 	for server in serverlist:
    		 if(server.name.startswith("Group3")):
-       			 runningInstances += 1 """
+       			 runningInstances += 1
 	
 	
         iList = createAngles(angle_start, angle_stop, n_angles)
 
-        #num_workers = calculateNumWorkers(len(iList), n_nodes, n_levels)
-	#createWorker(runningInstances, 2)
+        num_workers = calculateNumWorkers(len(iList), n_nodes, n_levels)
+	createWorker(runningInstances, 2)
         tupleList = []
         for i in iList:
                 tupleList.append((i, n_nodes, n_levels, num_samples, viscosity, speed, input_time))
